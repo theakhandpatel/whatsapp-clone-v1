@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Avatar, IconButton } from "@material-ui/core"
-import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons"
-import MicIcon from "@material-ui/icons/Mic"
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon"
+import { Avatar } from "@material-ui/core"
 import "./Chat.css"
 import { useParams } from "react-router-dom"
 import db from "./firebase"
@@ -11,11 +8,10 @@ import { useStateValue } from "./StateProvider"
 
 function Chat() {
   const [input, setInput] = useState("")
-  const [seed, setSeed] = useState("")
   const { roomId } = useParams()
   const [roomName, setRoomName] = useState("")
   const [messages, setMessages] = useState([])
-  const [{ user }, dispatch] = useStateValue()
+  const [{ user }] = useStateValue()
 
   useEffect(() => {
     if (roomId) {
@@ -65,7 +61,7 @@ function Chat() {
         {messages.map((message) => (
           <p
             className={`chat_message ${
-              message.name == user.displayName && "chat_receiver"
+              message.name === user.displayName && "chat_receiver"
             }`}
           >
             <span className="chat_name">{message.name}</span>
